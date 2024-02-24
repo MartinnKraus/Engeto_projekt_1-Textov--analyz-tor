@@ -18,25 +18,28 @@ passwords = {
     "liz" : "pass123"
 }
 
-username = input("Zadej uživatelské jméno: ")
-password = input("Zadej heslo: ")
+username = input("Insert username: ")
+password = input("Insert password: ")
 
-if passwords[username] == password:
-    print("Správné heslo, supr.")
+if passwords[username] != password:
+    #Ukončí program, pokud je uživatel neregistrovaný
+    print("unregistered user, terminating the program..")
+    sys.exit
+else:
     #Uvítání a úvod
     print(
         "-" * 40,
-        f"Vítej v aplikaci {username}",
-        "K dispozici pro analýzu jsou 3 texty",
+        f"Welcome to the app, {username}",
+        "We have 3 texts to be analyzed.",
         "-" * 40,
         sep="\n"
     )
     #Pobídni uživatele k výběru textu a otestuj jeho vstup
-    cislo_textu = input("Zadej číslo textu mezi 1 a 3: ")
+    cislo_textu = input("Enter a number btw. 1 and 3 to select: ")
     if not cislo_textu.isnumeric():
-        sys.exit("Vstup není číslo! Ukončuji program")
+        sys.exit("Input is not number, terminating the program..")
     elif int(cislo_textu) not in range(1,4):
-        sys.exit("Vstup není v rozsahu 1-3. Ukončuji program")
+        sys.exit("Input is not in valid range, terminating the program..")
     else:
         cislo_textu = int(cislo_textu)
     #Přiřaď text do proměnné a pročisti
@@ -49,9 +52,4 @@ if passwords[username] == password:
 
 
     print(slova)
-
-else:
-    print("Neregistrovaný uživatel, ukončuji program")
-
-
 

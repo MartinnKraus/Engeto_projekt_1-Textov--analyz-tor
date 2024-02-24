@@ -5,18 +5,12 @@ email: martinnkraus@gmail.com
 discord: martin_64789
 """
 
-import task_template
 import sys
 
-#texty = task_template.TEXTS
+import task_template
+from users import passwords
 
-#Hesla = {Uživatel : Hesla}
-passwords = {
-    "bob" : "123",
-    "ann" : "pass123",
-    "mike" : "password123",
-    "liz" : "pass123"
-}
+#texty = task_template.TEXTS
 
 username = input("Insert username: ")
 password = input("Insert password: ")

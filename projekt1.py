@@ -28,7 +28,7 @@ else:
         "-" * 40,
         sep="\n"
     )
-    #Pobídni uživatele k výběru textu a otestuj jeho vstup
+#Pobídni uživatele k výběru textu a otestuj jeho vstup:
     cislo_textu = input("Enter a number btw. 1 and 3 to select: ")
     if not cislo_textu.isnumeric():
         sys.exit("Input is not number, terminating the program..")
@@ -36,14 +36,20 @@ else:
         sys.exit("Input is not in valid range, terminating the program..")
     else:
         cislo_textu = int(cislo_textu)
-    #Přiřaď text do proměnné a pročisti
+    print("-" * 40 )
+#Přiřaď text do proměnné a pročisti:
     text = task_template.TEXTS[cislo_textu - 1]
     text.strip()
-    print("-" * 40 )
-
     slova = text.split()
     slova_set = set(slova)
+#Výpočty:
+    pocet_slov = len(slova) # Celkový počet slov
+
+    pocet_titlecase = 0
+    for slovo in slova:
+        if slovo.istitle():
+            pocet_titlecase += 1
 
 
-    print(slova)
+print(pocet_titlecase)
 

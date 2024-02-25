@@ -10,7 +10,13 @@ import sys
 import task_template
 from users import passwords
 
-#texty = task_template.TEXTS
+def has_numbers(inputString):
+    """
+    Test, zda má vstupní text nějaká čísla
+    """
+    return any(char.isdigit() for char in inputString)
+
+
 
 username = input("Insert username: ")
 password = input("Insert password: ")
@@ -45,11 +51,18 @@ else:
 #Výpočty:
     pocet_slov = len(slova) # Celkový počet slov
 
-    pocet_titlecase = 0
-    for slovo in slova:
-        if slovo.istitle():
-            pocet_titlecase += 1
+    pocet_titlecase = len([slovo for slovo in slova if slovo.istitle()])    #Počet slov počínajících velkým písmenem
+
+    pocet_uppercase = len([slovo for slovo in slova if slovo.isupper() and not has_numbers(slovo)])    #Počet slov psaných velkým písmem
+
+    pocet_lowercase = len([slovo for slovo in slova if slovo.islower()])    #Počet slov psaných malým písmem
+
+    pocet_numeric = len([slovo for slovo in slova if slovo.isnumeric()])
+
+    soucet_cisel = sum(int(cislo) for cislo in slova if cislo.isnumeric())
+
+#Knihovna s délkami slov:
 
 
-print(pocet_titlecase)
+print(pocet_slov, pocet_titlecase, pocet_uppercase, pocet_lowercase, pocet_numeric, soucet_cisel, sep=",")
 

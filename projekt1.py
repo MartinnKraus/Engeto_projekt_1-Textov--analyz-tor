@@ -16,15 +16,23 @@ def has_numbers(inputString):
     """
     return any(char.isdigit() for char in inputString)
 
+def count_by_len(seznam, delka):
+    """
+    Spočítá počet výsy´kytů slov dle zadané délky
+    """
+    return len([slovo for slovo in seznam if len(slovo) == delka])
 
 
-username = input("Insert username: ")
-password = input("Insert password: ")
+username = input("Insert username: ") #zjisti username
+
+if username not in passwords.keys():    #ověř, zda je uživatel registrovaný
+    sys.exit("Unregistered user, terminating the program..")
+
+password = input("Insert password: ") #zjisti heslo
 
 if passwords[username] != password:
     #Ukončí program, pokud je uživatel neregistrovaný
-    print("unregistered user, terminating the program..")
-    sys.exit
+    sys.exit("Wrong password, terminating the program..")
 else:
     #Uvítání a úvod
     print(
@@ -45,8 +53,7 @@ else:
     print("-" * 40 )
 #Přiřaď text do proměnné a pročisti:
     text = task_template.TEXTS[cislo_textu - 1]
-    text.strip()
-    slova = text.split()
+    slova = [slovo.strip(",.:;") for slovo in text.split()]
     slova_set = set(slova)
 #Výpočty:
     pocet_slov = len(slova) # Celkový počet slov
@@ -62,7 +69,20 @@ else:
     soucet_cisel = sum(int(cislo) for cislo in slova if cislo.isnumeric())
 
 #Knihovna s délkami slov:
+    max_delka = max(len(slovo) for slovo in slova)
+    pocet_delek = {delka : count_by_len(slova, delka) for delka in range(1, max_delka + 1)}
 
-
-print(pocet_slov, pocet_titlecase, pocet_uppercase, pocet_lowercase, pocet_numeric, soucet_cisel, sep=",")
-
+#Printy výsledků:
+    print(f"There are {pocet_slov} words in the selected text.",
+            f"There are {pocet_titlecase} titlecase words.",
+            f"There are {pocet_uppercase} uppercase words.",
+            f"There are {pocet_lowercase} lowercase words.",
+            f"There are {pocet_numeric} numeric strings.",
+            f"The sum of all the numbers {soucet_cisel}",
+            sep="\n"
+          )
+    print("-" * 40,
+          "LEN|  OCCURENCES  |NR.",
+          "-" * 40,
+          sep="\n"
+          )

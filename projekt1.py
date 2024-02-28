@@ -81,8 +81,16 @@ else:
             f"The sum of all the numbers {soucet_cisel}",
             sep="\n"
           )
+#Vytiskni "graf" délek:
     print("-" * 40,
-          "LEN|  OCCURENCES  |NR.",
+          "LEN|" + "OCCURENCES".center(20) + "|NR.",
           "-" * 40,
           sep="\n"
           )
+    for delka in pocet_delek:
+        print(str(delka).rjust(2),
+              "|",
+              ("*" * pocet_delek[delka]).ljust(20),
+              "|",
+              pocet_delek[delka]
+              )

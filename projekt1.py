@@ -7,8 +7,8 @@ discord: martin_64789
 
 import sys
 
-import task_template
-from users import passwords
+import task_template    #Import knihovny s textem ze zadání
+from users import passwords #Import knihovny s hesly
 
 def has_numbers(inputString):
     """
@@ -18,7 +18,7 @@ def has_numbers(inputString):
 
 def count_by_len(seznam, delka):
     """
-    Spočítá počet výsy´kytů slov dle zadané délky
+    Spočítá počet výskytů slov dle zadané délky
     """
     return len([slovo for slovo in seznam if len(slovo) == delka])
 
@@ -53,7 +53,7 @@ else:
     print("-" * 40 )
 #Přiřaď text do proměnné a pročisti:
     text = task_template.TEXTS[cislo_textu - 1]
-    slova = [slovo.strip(",.:;") for slovo in text.split()]
+    slova = [slovo.strip(",.:;-") for slovo in text.split()]
     slova_set = set(slova)
 #Výpočty:
     pocet_slov = len(slova) # Celkový počet slov
@@ -70,27 +70,28 @@ else:
 
 #Knihovna s délkami slov:
     max_delka = max(len(slovo) for slovo in slova)
-    pocet_delek = {delka : count_by_len(slova, delka) for delka in range(1, max_delka + 1)}
-
+    pocet_delek = {delka : count_by_len(slova, delka) for delka in range(1, max_delka + 1) if count_by_len(slova, delka) > 0}
+    max_vyskytu = max(pocet_delek.values())
 #Printy výsledků:
     print(f"There are {pocet_slov} words in the selected text.",
-            f"There are {pocet_titlecase} titlecase words.",
-            f"There are {pocet_uppercase} uppercase words.",
-            f"There are {pocet_lowercase} lowercase words.",
-            f"There are {pocet_numeric} numeric strings.",
-            f"The sum of all the numbers {soucet_cisel}",
-            sep="\n"
-          )
+        f"There are {pocet_titlecase} titlecase words.",
+        f"There are {pocet_uppercase} uppercase words.",
+        f"There are {pocet_lowercase} lowercase words.",
+        f"There are {pocet_numeric} numeric strings.",
+        f"The sum of all the numbers {soucet_cisel}",
+        sep="\n"
+        )
 #Vytiskni "graf" délek:
     print("-" * 40,
-          "LEN|" + "OCCURENCES".center(20) + "|NR.",
+          "LEN|" + "OCCURENCES".center(max_vyskytu + 3) + "|NR.",
           "-" * 40,
           sep="\n"
           )
     for delka in pocet_delek:
-        print(str(delka).rjust(2),
+        print(str(delka).rjust(3),
               "|",
-              ("*" * pocet_delek[delka]).ljust(20),
+              ("*" * pocet_delek[delka]).ljust(max_vyskytu + 3),
               "|",
-              pocet_delek[delka]
+              pocet_delek[delka],
+              sep = ""
               )
